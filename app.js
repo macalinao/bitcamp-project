@@ -16,6 +16,14 @@ app.get('/iapds', (req, res) => {
   });
 });
 
+app.get('/iapds/:iapd', (req, res) => {
+  iapds.findOneAsync({
+    _id: req.params.iapd
+  }).then((doc) => {
+    res.json(doc);
+  });
+});
+
 let port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log('Listening on port ' + port);
