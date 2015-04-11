@@ -11,7 +11,11 @@ let iapds = db.get('iapds');
 P.promisifyAll(iapds);
 
 app.get('/iapds', (req, res) => {
-  iapds.findAsync({}, { limit: 50 }).then((docs) => {
+  let skip = (req.query.page || 0) * 200;
+  iapds.findAsync({}, {
+    limit: 200,
+    skip: skip
+  }).then((docs) => {
     res.json(docs);
   });
 });
