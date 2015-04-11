@@ -1,0 +1,1 @@
+rating = (EXM + YRSTOTAL / 5 + YRSCURR / 2 + 2(JRDS - 1) - 4DRP) * 10 

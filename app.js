@@ -123,6 +123,8 @@ app.get('/companies/:id', (req, res) => {
   });
 });
 
+app.use(express.static(__dirname + '/bitcamp/app/'));
+
 let port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log('Listening on port ' + port);
