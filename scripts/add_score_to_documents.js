@@ -49,7 +49,7 @@ db.iapds.find().forEach(function(doc) {
       if (drp.hasOwnProperty(key)) {
         var val = drp[key];
         if (val === 'Y') {
-          doc.score -= 4;
+          doc.score -= 10;
         }
       }
     }
