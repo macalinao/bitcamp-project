@@ -25,5 +25,11 @@ angular.module('justin', ['ui.router'])
   $http.get('/iapds/' + $stateParams.id).success(function(data) {
     $scope.iapd = data;
   });
+})
+
+.controller('CompanyCtrl', function($scope, $stateParams) {
+  $http.get('/companies/' + $stateParams.id).success(function(data) {
+    $scope.company = data;
+  });
 });
 
