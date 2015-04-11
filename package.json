@@ -4,6 +4,7 @@
   "description": "Royalty",
   "main": "app.js",
   "scripts": {
+    "start": "babel-node app",
     "test": "karma"
   },
   "repository": {
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/simplyianm/bitcamp-project",
   "dependencies": {
+    "babel": "^5.0.12",
     "express": "^4.12.3",
     "monk": "^1.0.1"
   }
