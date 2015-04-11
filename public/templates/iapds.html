@@ -1,11 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <ul>
-        <li ng-repeat="iapd in iapds | orderBy:'-score'">
-          {{ iapd.Info['@firstNm'] }} {{ iapd.Info['@lastNm'] }} (Score: {{ iapd.score }})
-        </li>
-      </ul>
-    </div>
+    <table class="table striped"> 
+    	<thead> 
+    		<tr> 
+    			<th>First Name</th> 
+    			<th>Last Name</th>
+    			<th>Score</th> 
+    		</tr> 
+    	</thead> 
+    	<tbody> 
+      		<tr ng-repeat="iapd in iapds | orderBy:'-score'">
+          			<td> {{ iapd.Info['@firstNm'] }} </td>  
+          			<td> {{ iapd.Info['@lastNm'] }} </td>  
+          			<td> {{ iapd.score }} </td> 
+        		</td>
+      		</tr>
+  		</tbody>
+  	</table>  
   </div>
 </div>
