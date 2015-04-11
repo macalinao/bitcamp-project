@@ -9,6 +9,10 @@ angular.module('justin', ['ui.router'])
     url: '/iapd/:id',
     controller: 'IapdCtrl',
     templateUrl: '/templates/iapd.html'
+  }).state('company', {
+    url: '/company/:id',
+    controller: 'CompanyCtrl',
+    templateUrl: '/templates/company.html'
   });
 
   $urlRouterProvider.otherwise('/');
