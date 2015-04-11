@@ -1,5 +1,3 @@
 App.IapdsRoute = Ember.Route.extend({
-  setupController: function(controller, playlist) {
-    controller.set('
-  }
+  model: function() { return this.store.find('iapd'); }
 });
