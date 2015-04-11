@@ -13,6 +13,11 @@ angular.module('justin', ['ui.router'])
     url: '/company/:id',
     controller: 'CompanyCtrl',
     templateUrl: '/templates/company.html'
+
+  }).state('compare', {
+    url: '/compare/:a/:b',
+    controller: 'CompareCtrl',
+    templateUrl: '/templates/compare.html'
   });
 
   $urlRouterProvider.otherwise('/');
@@ -28,6 +33,15 @@ angular.module('justin', ['ui.router'])
 .controller('IapdCtrl', function($scope, $stateParams) {
   $http.get('/iapds/' + $stateParams.id).success(function(data) {
     $scope.iapd = data;
+  });
+})
+
+.controller('CompareCtrl', function($scope, $stateParams) {
+  $http.get('/iapds/' + $stateParams.a).success(function(data) {
+    $scope.a = data;
+  });
+  $http.get('/iapds/' + $stateParams.b).success(function(data) {
+    $scope.b = data;
   });
 })
 
