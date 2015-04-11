@@ -10,7 +10,7 @@ db.iapds.find().forEach(function(doc) {
   }
 
   // Emp
-  var emp = doc.EmpHss.EmpHs;
+  var emp = (doc.EmpHss || {}).EmpHs;
   if (emp) {
     if (emp.length && emp.length > 0) {
       doc.score += (2015 - parseInt(emp[0]['@fromDt'].split('/')[1])) / 5;
@@ -21,7 +21,7 @@ db.iapds.find().forEach(function(doc) {
     }
   }
 
-  var crnt = doc.CrntEmps.CrntEmp;
+  var crnt = (doc.CrntEmps || {}).CrntEmp;
   if (crnt) {
     if (crnt.length && crnt.length > 0) {
       for (var i = 0; i < crnt.length; i++) {
