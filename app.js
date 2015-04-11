@@ -27,7 +27,7 @@ app.get('/iapds/:iapd', (req, res) => {
   });
 });
 
-app.get('/iapds/company/:orgpk', (req, res) => {
+app.get('/companies', (req, res) => {
   iapds.aggregateAsync([
     { $limit: 50000 },
     {
@@ -71,6 +71,55 @@ app.get('/iapds/company/:orgpk', (req, res) => {
     });
 
     res.json(ret);
+  });
+});
+
+app.get('/companies/:id', (req, res) => {
+  iapds.aggregateAsync([
+    { $match: { 'CrntEmps.CrntEmp.@orgPK': req.params.id } },
+    { $limit: 50000 },
+    {
+      $group: {
+        _id: '$CrntEmps.CrntEmp.@orgPK',
+        name: { $first: '$CrntEmps.CrntEmp.@orgNm' },
+        info: { $first: '$CrntEmps.CrntEmp' },
+        iapds: { $push: '$_id' }
+      }
+    }
+  ]).then((docs) => {
+    let docMap = {};
+
+    // Map documents
+    let ret = docs.filter((doc) => {
+      return !Array.isArray(doc._id);
+    }).map((doc) => {
+      docMap[doc._id] = doc;
+      return doc;
+    });
+
+    // Filter remaining documents
+    docs.filter((doc) => {
+      return Array.isArray(doc._id);
+    }).map((doc) => {
+
+      for (let i = 0; i < doc._id.length; i++) {
+        let _id = doc._id[i];
+        let d = docMap[_id];
+        if (!d) {
+          d = {
+            _id: _id,
+            name: doc.name[i],
+            iapds: []
+          };
+          docMap[_id] = d;
+          ret.push(d);
+        }
+        d.iapds = d.iapds.concat(doc.iapds);
+      }
+
+    });
+
+    res.json(docMap[req.params.id]);
   });
 });
 
