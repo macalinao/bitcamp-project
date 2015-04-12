@@ -4,7 +4,7 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
   $stateProvider.state('home', {
     url: '/',
     controller: 'HomeCtrl',
-    templateUrl: '/templates/iapds.html'
+    templateUrl: '/templates/home.html'
   }).state('iapd', {
     url: '/iapd/:id',
     controller: 'IapdCtrl',
