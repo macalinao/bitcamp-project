@@ -54,6 +54,7 @@ app.get('/companies', (req, res) => {
     let ret = docs.filter((doc) => {
       return !Array.isArray(doc._id);
     }).map((doc) => {
+      doc.avgRating = doc.rating / doc.iapds.length;
       docMap[doc._id] = doc;
       return doc;
     });
@@ -104,6 +105,7 @@ app.get('/companies/:id', (req, res) => {
     let ret = docs.filter((doc) => {
       return !Array.isArray(doc._id);
     }).map((doc) => {
+      doc.avgRating = doc.rating / doc.iapds.length;
       docMap[doc._id] = doc;
       return doc;
     });
