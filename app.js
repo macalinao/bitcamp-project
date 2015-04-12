@@ -144,7 +144,7 @@ app.get('/search', (req, res) => {
 
 app.use(express.static(__dirname + '/public/'));
 
-let port = process.env.VCAP_APP_PORT || 3000;
+let port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log('Listening on port ' + port);
 });
