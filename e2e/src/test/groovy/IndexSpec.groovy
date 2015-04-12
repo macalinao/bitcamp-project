@@ -35,4 +35,20 @@ class IndexSpec extends Specification {
     expect:
     ewd.getTitle() == "InvestorWatch - Verify the integrity of investment advisors"
   }
+
+  def "Ensure proper title advisors"() {
+    setup:
+    ewd.open("http://localhost:3000/#/advisors")
+
+    expect:
+    ewd.getTitle() == "Best and Worst Advisors"
+  }
+
+  def "Ensure proper title companies"() {
+    setup:
+    ewd.open("http://localhost:3000/#/companies")
+
+    expect:
+    ewd.getTitle() == "Best and Worst Companies"
+  }
 }
