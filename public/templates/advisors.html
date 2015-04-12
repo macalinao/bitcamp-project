@@ -1,0 +1,37 @@
+<div class="container">
+<div class="row">
+
+  <div class="col-md-6">
+    <h2>Best Advisors</h2>
+    <table class="table table-striped">
+      <thead>
+        <th>Advisor Name</th>
+        <th>Rating</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="advisor in advisors | orderBy:'-rating' | limitTo:30">
+          <td>{{ advisor.name }}</td>
+          <td>{{ advisor.rating }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <h2>Worst Advisors</h2>
+    <table class="table table-striped">
+      <thead>
+        <th>Advisor Name</th>
+        <th>Rating</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="advisor in advisors | orderBy:'rating' | limitTo:30">
+          <td>{{ advisor.name }}</td>
+          <td>{{ advisor.rating }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>

@@ -16,6 +16,10 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
     controller: 'CompanyCtrl',
     templateUrl: '/templates/company.html'
 
+  }).state('advisors', {
+    url: '/advisors',
+    controller: 'AdvisorsCtrl',
+    templateUrl: '/templates/advisors.html'
   }).state('compare', {
     url: '/compare/:a/:b',
     controller: 'CompareCtrl',
@@ -74,10 +78,37 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
     s.title = $scope.a.name + ' vs ' + $scope.b.name;
   }
 
-  function transform(a) {
-    var ret = {};
-    ret.name = a.Info['@firstNm'] + ' ' + a.Info['@lastNm'];
-    ret.rating = a.score;
+})
+
+.controller('AdvisorsCtrl', function($scope, $advisors) {
+  $scope.advisors = [];
+  $advisors.then(function(data) {
+    $scope.advisors = data;
+  });
+})
+
+.controller('CompanyCtrl', function($scope, $stateParams) {
+  $http.get('/companies/' + $stateParams.id).success(function(data) {
+    $scope.company = data;
+  });
+})
+
+.factory('$advisors', function($http, $q) {
+  var data = {};
+  return $q(function(resolve, reject) {
+    if (data.advisors) return resolve(data.advisors);
+    $http.get('/iapds').then(function(iapds) {
+      data.advisors = iapds.data.map(transform);
+      resolve(data.advisors);
+    });
+  });
+});
+
+function transform(a) {
+  var ret = {};
+  ret.name = a.Info['@firstNm'] + ' ' + a.Info['@lastNm'];
+  ret.rating = a.score;
+  if (a.CrntEmps) {
     ret.employer = a.CrntEmps['CrntEmp']['@orgNm'];
     ret.regs = a.CrntEmps['CrntEmp']['CrntRgstns']['CrntRgstn'];
     if (!Array.isArray(ret.regs)) {
@@ -86,41 +117,38 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
     ret.regs = ret.regs.map(function(r) {
       return r['@regAuth'];
     });
-    if(!a.PrevRgstns){
-      ret.exp = "<1"
-    }else{
+  }
+  if(!a.PrevRgstns){
+    ret.exp = "<1"
+  } else {
     if(!Array.isArray(a.PrevRgstns['PrevRgstn']))
       ret.exp = 2015 - parseInt(a.PrevRgstns['PrevRgstn']['@regBeginDt'].substring(0,4))
     else{
       ret.exp = 2015 - parseInt(a.PrevRgstns['PrevRgstn'][0]['@regBeginDt'].substring(0,4))
     }
   }
-    ret.exams = a.Exms['Exm']
+
+  if (a.Exms) {
+    ret.exams = a.Exms['Exm'];
     if(!Array.isArray(ret.exams)){
       ret.exams = [ret.exams]
     }
     ret.exams = ret.exams.map(function(r) {
       return r['@exmNm'];
     });
-    ret.DRPs = [];
-    if (a.DRPs) {
-      for (key in a.DRPs['DRP']) {
-        if (a.DRPs['DRP'].hasOwnProperty(key)) {
-          ret.DRPs.push({
-            key: key.substring(1).replace(/([A-Z])/g, ' $1')
-                    .replace(/^./, function(str){ return str.toUpperCase(); }),
-            val: a.DRPs['DRP'][key]
-          });
-        }
+  }
+  ret.DRPs = [];
+
+  if (a.DRPs) {
+    for (key in a.DRPs['DRP']) {
+      if (a.DRPs['DRP'].hasOwnProperty(key)) {
+        ret.DRPs.push({
+          key: key.substring(1).replace(/([A-Z])/g, ' $1')
+            .replace(/^./, function(str){ return str.toUpperCase(); }),
+          val: a.DRPs['DRP'][key]
+        });
       }
     }
-    return ret;
   }
-})
-
-.controller('CompanyCtrl', function($scope, $stateParams) {
-  $http.get('/companies/' + $stateParams.id).success(function(data) {
-    $scope.company = data;
-  });
-});
-
+  return ret;
+}
