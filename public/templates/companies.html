@@ -1,0 +1,45 @@
+<div class="container">
+<div class="row">
+
+  <div class="col-md-6">
+    <h2>Best Companies</h2>
+    <table class="table table-striped">
+      <thead>
+        <th>Company Name</th>
+        <th>Members</th>
+        <th>Rating</th>
+        <th>Average Rating</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="company in companies | orderBy:'-rating' | limitTo:30">
+          <td>{{ company.name }}</td>
+          <td>{{ company.iapds.length }}</td>
+          <td>{{ company.rating }}</td>
+          <td>{{ company.avgRating.toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <h2>Worst Companies</h2>
+    <table class="table table-striped">
+      <thead>
+        <th>Company Name</th>
+        <th>Members</th>
+        <th>Rating</th>
+        <th>Average Rating</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="company in companies | orderBy:'rating' | limitTo:30">
+          <td>{{ company.name }}</td>
+          <td>{{ company.iapds.length }}</td>
+          <td>{{ company.rating }}</td>
+          <td>{{ company.avgRating.toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>

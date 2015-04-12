@@ -20,6 +20,10 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
     url: '/advisors',
     controller: 'AdvisorsCtrl',
     templateUrl: '/templates/advisors.html'
+  }).state('companies', {
+    url: '/companies',
+    controller: 'CompaniesCtrl',
+    templateUrl: '/templates/companies.html'
   }).state('compare', {
     url: '/compare/:a/:b',
     controller: 'CompareCtrl',
@@ -81,15 +85,37 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
 })
 
 .controller('AdvisorsCtrl', function($scope, $advisors) {
+  s.title = 'Best and Worst Advisors';
   $scope.advisors = [];
   $advisors.then(function(data) {
     $scope.advisors = data;
   });
 })
 
+.controller('CompaniesCtrl', function($scope, $companies) {
+  s.title = 'Best and Worst Companies';
+  $scope.companies = [];
+  $companies.then(function(data) {
+    $scope.companies = data;
+  });
+})
+
 .controller('CompanyCtrl', function($scope, $stateParams) {
   $http.get('/companies/' + $stateParams.id).success(function(data) {
     $scope.company = data;
+  });
+})
+
+.factory('$companies', function($http, $q) {
+  var data = {};
+  return $q(function(resolve, reject) {
+    if (data.companies) return resolve(data.companies);
+    $http.get('/companies').then(function(companies) {
+      data.companies = companies.data.filter(function(c) {
+        return c.rating;
+      });
+      resolve(data.companies);
+    });
   });
 })
 
