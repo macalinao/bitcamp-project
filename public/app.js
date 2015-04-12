@@ -54,11 +54,27 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
 
 .controller('CompareCtrl', function($scope, $stateParams, $http) {
   $http.get('/iapds/' + $stateParams.a).success(function(data) {
-    $scope.a = data;
+    $scope.a = transform(data);
   });
   $http.get('/iapds/' + $stateParams.b).success(function(data) {
-    $scope.b = data;
+    $scope.b = transform(data);
   });
+
+  function transform(a) {
+    var ret = {};
+    ret.name = a.Info['@firstNm'] + ' ' + a.Info['@lastNm'];
+    ret.rating = a.score;
+    ret.employer = a.CrntEmps['CrntEmp']['@orgNm'];
+    ret.regs = a.CrntEmps['CrntEmp']['CrntRgstns']['CrntRgstn'];
+    if (!Array.isArray(ret.regs)) {
+      ret.regs = [ret.regs];
+    }
+    ret.regs = ret.regs.map(function(r) {
+      return r['@regAuth'];
+    });
+
+    return ret;
+  }
 })
 
 .controller('CompanyCtrl', function($scope, $stateParams) {
