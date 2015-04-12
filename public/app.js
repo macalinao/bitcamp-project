@@ -1,4 +1,4 @@
-angular.module('justin', ['ui.router'])
+angular.module('justin', ['ui.router', 'ui.bootstrap'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('home', {
