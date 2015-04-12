@@ -1,3 +1,5 @@
+var s;
+
 angular.module('justin', ['ui.router', 'ui.bootstrap'])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -21,6 +23,10 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
   });
 
   $urlRouterProvider.otherwise('/');
+})
+
+.controller('MainCtrl', function($scope) {
+  s = $scope;
 })
 
 .controller('HomeCtrl', function($scope, $http, $location) {
@@ -55,10 +61,16 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
 .controller('CompareCtrl', function($scope, $stateParams, $http) {
   $http.get('/iapds/' + $stateParams.a).success(function(data) {
     $scope.a = transform(data);
+    r();
   });
   $http.get('/iapds/' + $stateParams.b).success(function(data) {
     $scope.b = transform(data);
+    r();
   });
+
+  function r() {
+    s.title = $scope.a.name + ' vs ' + $scope.b.name;
+  }
 
   function transform(a) {
     var ret = {};
@@ -75,7 +87,7 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
     if(!a.PrevRgstns){
       ret.exp = "<1"
     }else{
-    if(!Array.isArray(a.PrevRgstns['PrevRgstn'])) 
+    if(!Array.isArray(a.PrevRgstns['PrevRgstn']))
       ret.exp = 2015 - parseInt(a.PrevRgstns['PrevRgstn']['@regBeginDt'].substring(0,4))
     else{
       ret.exp = 2015 - parseInt(a.PrevRgstns['PrevRgstn'][0]['@regBeginDt'].substring(0,4))
