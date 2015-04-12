@@ -1,78 +1,78 @@
 <div class="container">
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <h1 class="page-header">Comparison</h1>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1 class="page-header">Comparison</h1>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Advisor</th>
-          <th>{{ a.name }}</th>
-          <th>{{ b.name }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Rating
-            <span id="ratingAbout" tooltip="This score is calculated based on experience and ethical history." class="glyphicon glyphicon-question-sign"></span>
-          </td>
-          <td class="rating">{{ a.rating }}</td>
-          <td class="rating">{{ b.rating }}</td>
-        </tr>
-        <tr>
-          <td>Employer</td>
-          <td>{{ a.employer }}</td>
-          <td>{{ b.employer }}</td>
-        </tr>
-        <tr>
-          <td>Current Registrations</td>
-          <td>
-            <ul>
-              <li ng-repeat="reg in a.regs">{{reg }}</li>
-            </ul>
-          </td>
-          <td>
-            <ul>
-              <li ng-repeat="reg in b.regs">{{ reg }}</li>
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td>Years of Experience</td>
-          <td>{{a.exp}}</td>
-          <td>{{b.exp}}</td>
-        </tr>
-        <tr>
-          <td>Exams</td>
-          <td>
-            <ul>
-              <li ng-repeat="exam in a.exams">{{exam}}</li>
-            </ul>
-          </td>
-          <td>
-            <ul>
-              <li ng-repeat="exam in b.exams">{{exam}}</li>
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td>DRPs</td>
-          <td>
-            <ul>
-              <li ng-repeat="DRP in a.DRPs">{{DRP.key}}: {{DRP.val}}</li>
-            </ul>
-          </td>
-          <td>
-            <ul>
-              <li ng-repeat="DRP in b.DRPs">{{DRP.key}}: {{DRP.val}}</li>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Advisor</th>
+            <td>{{ a.name }}</td>
+            <td>{{ b.name }}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Rating
+              <span id="ratingAbout" tooltip="This score is calculated based on experience and ethical history." class="glyphicon glyphicon-question-sign"></span>
+            </th>
+            <td class="rating">{{ a.rating }}</td>
+            <td class="rating">{{ b.rating }}</td>
+          </tr>
+          <tr>
+            <th>Employer</th>
+            <td>{{ a.employer }}</td>
+            <td>{{ b.employer }}</td>
+          </tr>
+          <tr>
+            <th>Current Registrations</th>
+            <td>
+              <ul>
+                <li ng-repeat="reg in a.regs">{{reg }}</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li ng-repeat="reg in b.regs">{{ reg }}</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>Years of Experience</th>
+            <td>{{a.exp}}</td>
+            <td>{{b.exp}}</td>
+          </tr>
+          <tr>
+            <th>Exams</th>
+            <td>
+              <ul>
+                <li ng-repeat="exam in a.exams">{{exam}}</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li ng-repeat="exam in b.exams">{{exam}}</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>DRPs</th>
+            <td>
+              <ul>
+                <li ng-repeat="DRP in a.DRPs">{{DRP.key}}: {{DRP.val}}</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li ng-repeat="DRP in b.DRPs">{{DRP.key}}: {{DRP.val}}</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
+    </div>
   </div>
-</div>
 </div>
 
 
