@@ -11,12 +11,12 @@
           <form class="form-inline">
             <div class="form-group">
               <input type="text" class="form-control input-lg" ng-model="advisor.a" placeholder="Enter name"
-                typeahead="(advisor.Info['@lastNm'] + ', ' + advisor.Info['@firstNm']) for advisor in advisors | filter:$viewValue | limitTo:8"
+                typeahead="advisor.name for advisor in advisors | filter:$viewValue | limitTo:8"
                 typeahead-on-select="onSelectA($item)" />
             </div>
             <div class="form-group">
               <input type="email" class="form-control input-lg" ng-model="advisor.b" placeholder="Enter name"
-                typeahead="(advisor.Info['@lastNm'] + ', ' + advisor.Info['@firstNm']) for advisor in advisors | filter:$viewValue | limitTo:8"
+                typeahead="advisor.name for advisor in advisors | filter:$viewValue | limitTo:8"
                 typeahead-on-select="onSelectB($item)" />
             </div>
           </form>

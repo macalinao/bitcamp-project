@@ -33,14 +33,14 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
   s = $scope;
 })
 
-.controller('HomeCtrl', function($scope, $http, $location) {
+.controller('HomeCtrl', function($scope, $http, $location, $advisors) {
   s.title = 'InvestorWatch - Verify the integrity of investment advisors';
 
   $scope.advisor = {};
   $scope.advisorIds = {};
 
   $scope.advisors = [];
-  $http.get('/iapds').success(function(data) {
+  $advisors.then(function(data) {
     $scope.advisors = data;
   });
 
@@ -106,6 +106,7 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
 
 function transform(a) {
   var ret = {};
+  ret._id = a._id;
   ret.name = a.Info['@firstNm'] + ' ' + a.Info['@lastNm'];
   ret.rating = a.score;
   if (a.CrntEmps) {
