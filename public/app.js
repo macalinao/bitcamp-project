@@ -79,7 +79,14 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
   });
 
   function r() {
+    if (!$scope.a || !$scope.b) return;
     s.title = $scope.a.name + ' vs ' + $scope.b.name;
+    $http.get('/companies/' + $scope.a.eid).success(function(data) {
+      $scope.a.er = data.rating;
+    });
+    $http.get('/companies/' + $scope.b.eid).success(function(data) {
+      $scope.b.er = data.rating;
+    });
   }
 
 })
@@ -137,6 +144,7 @@ function transform(a) {
   ret.rating = a.score;
   if (a.CrntEmps) {
     ret.employer = a.CrntEmps['CrntEmp']['@orgNm'];
+    ret.eid = a.CrntEmps['CrntEmp']['@orgPK'];
     ret.regs = a.CrntEmps['CrntEmp']['CrntRgstns']['CrntRgstn'];
     if (!Array.isArray(ret.regs)) {
       ret.regs = [ret.regs];
