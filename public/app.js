@@ -52,7 +52,7 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
   });
 })
 
-.controller('CompareCtrl', function($scope, $stateParams) {
+.controller('CompareCtrl', function($scope, $stateParams, $http) {
   $http.get('/iapds/' + $stateParams.a).success(function(data) {
     $scope.a = data;
   });
