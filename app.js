@@ -43,6 +43,7 @@ app.get('/companies', (req, res) => {
       $group: {
         _id: '$CrntEmps.CrntEmp.@orgPK',
         name: { $first: '$CrntEmps.CrntEmp.@orgNm' },
+        rating: { $sum: '$score' },
         iapds: { $push: '$_id' }
       }
     }
@@ -92,6 +93,7 @@ app.get('/companies/:id', (req, res) => {
         _id: '$CrntEmps.CrntEmp.@orgPK',
         name: { $first: '$CrntEmps.CrntEmp.@orgNm' },
         info: { $first: '$CrntEmps.CrntEmp' },
+        rating: { $sum: '$score' },
         iapds: { $push: '$_id' }
       }
     }
@@ -123,6 +125,7 @@ app.get('/companies/:id', (req, res) => {
           docMap[_id] = d;
           ret.push(d);
         }
+        d.rating += doc.rating[i];
         d.iapds = d.iapds.concat(doc.iapds);
       }
 
