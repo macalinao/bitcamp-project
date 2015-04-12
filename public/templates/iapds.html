@@ -1,11 +1,39 @@
+<head>
+	<link rel="stylesheet" href="../css/cover.css" type="text/css">
+</head>
+<body> 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <ul>
-        <li ng-repeat="iapd in iapds | orderBy:'-score'">
-          {{ iapd.Info['@firstNm'] }} {{ iapd.Info['@lastNm'] }} (Score: {{ iapd.score }})
-        </li>
-      </ul>
-    </div>
+  	<h1>Financial Advisor Review</h1>
+  	<div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-default" type="button">Go!</button>
+      </span>
+    </div><!-- /input-group -->
+    <br> 
+    <div class="compare">
+    <button type="button" class="btn btn-default">Compare</button>
+	</div>
+  </div><!-- /.col-lg-6 -->
+    <table class="table striped"> 
+    	<thead> 
+    		<tr> 
+    			<th>First Name</th> 
+    			<th>Last Name</th>
+    			<th>Score <span class="glyphicon glyphicon-question-sign"></span></th> 
+    		</tr> 
+    	</thead> 
+    	<tbody> 
+      		<tr ng-repeat="iapd in iapds | orderBy:'-score'">
+          			<td> {{ iapd.Info['@firstNm'] }} </td>  
+          			<td> {{ iapd.Info['@lastNm'] }} </td>  
+          			<td> {{ iapd.score }} </td> 
+        		</td>
+      		</tr>
+  		</tbody>
+  	</table>  
   </div>
 </div>
+</body> 
