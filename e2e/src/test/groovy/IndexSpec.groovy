@@ -29,6 +29,8 @@ class IndexSpec extends Specification {
     ewd.open("http://localhost:3000")
 
     IButton b = new Button("//*[contains(@class,'btn') and text()='Compare advisors']");
+    b.waitForElementPresent()
+    b.click()
 
     expect:
     ewd.getTitle() == "InvestorWatch - Verify the integrity of investment advisors"
