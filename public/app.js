@@ -41,6 +41,7 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
   };
 
   $scope.compare = function() {
+    if (!$scope.advisorIds.a || !$scope.advisorIds.b) return;
     $location.url('/compare/' + $scope.advisorIds.a + '/' + $scope.advisorIds.b);
   };
 })
