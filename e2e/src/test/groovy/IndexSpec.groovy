@@ -11,6 +11,6 @@ class IndexSpec extends Specification {
     ewd.open("http://localhost:3000")
 
     expect:
-    ewd.getTitle() == "Justin Ho"
+    ewd.getTitle() == "InvestorWatch - Verify the integrity of investment advisors"
   }
 }
