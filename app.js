@@ -7,6 +7,10 @@ let app = express();
 // Database
 let db = mongojs(process.env.MONGODB_URI || 'mongodb://localhost:27017/bitcamp');
 let iapds = db.collection('iapds');
+// Indices
+iapds.createIndex({
+  'Info.@lastNm': 'text'
+});
 P.promisifyAll(iapds);
 
 app.get('/iapds', (req, res) => {
@@ -120,6 +124,16 @@ app.get('/companies/:id', (req, res) => {
     });
 
     res.json(docMap[req.params.id]);
+  });
+});
+
+app.get('/search', (req, res) => {
+  iapds.findAsync({
+    'Info.@lastNm': {
+      $regex: req.query.q.toUpperCase()
+    }
+  }).then((docs) => {
+    res.json(docs);
   });
 });
 
