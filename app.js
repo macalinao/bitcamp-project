@@ -1,6 +1,6 @@
 import P from 'bluebird';
 import express from 'express';
-import mongojs from 'mongojs';
+import mongojs, { ObjectId } from 'mongojs';
 
 let app = express();
 
@@ -25,7 +25,7 @@ app.get('/iapds', (req, res) => {
 
 app.get('/iapds/:iapd', (req, res) => {
   iapds.findOneAsync({
-    _id: req.params.iapd
+    _id: ObjectId(req.params.iapd)
   }).then((doc) => {
     res.json(doc);
   });
