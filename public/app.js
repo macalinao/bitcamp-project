@@ -72,7 +72,34 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
     ret.regs = ret.regs.map(function(r) {
       return r['@regAuth'];
     });
-
+    if(!a.PrevRgstns){
+      ret.exp = "<1"
+    }else{
+    if(!Array.isArray(a.PrevRgstns['PrevRgstn'])) 
+      ret.exp = 2015 - parseInt(a.PrevRgstns['PrevRgstn']['@regBeginDt'].substring(0,4))
+    else{
+      ret.exp = 2015 - parseInt(a.PrevRgstns['PrevRgstn'][0]['@regBeginDt'].substring(0,4))
+    }
+  }
+    ret.exams = a.Exms['Exm']
+    if(!Array.isArray(ret.exams)){
+      ret.exams = [ret.exams]
+    }
+    ret.exams = ret.exams.map(function(r) {
+      return r['@exmNm'];
+    });
+    ret.DRPs = [];
+    if (a.DRPs) {
+      for (key in a.DRPs['DRP']) {
+        if (a.DRPs['DRP'].hasOwnProperty(key)) {
+          ret.DRPs.push({
+            key: key.substring(1).replace(/([A-Z])/g, ' $1')
+                    .replace(/^./, function(str){ return str.toUpperCase(); }),
+            val: a.DRPs['DRP'][key]
+          });
+        }
+      }
+    }
     return ret;
   }
 })

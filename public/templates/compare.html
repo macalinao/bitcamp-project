@@ -37,18 +37,34 @@
 		</tr>
 		<tr>
 			<td>Years of Experience</td> 
-			<td>{{a.PrevRgstns['PrevRgstn'][0]['@regBeginDt']}}</td>
-			<td></td> 
+			<td>{{a.exp}}</td>
+			<td>{{b.exp}}</td> 
 		</tr>
 		<tr> 
 			<td>Exams</td> 
-			<td></td> 
-			<td></td> 
+			<td>
+				<ul> 
+					<li ng-repeat="exam in a.exams">{{exam}}</li> 
+				</ul>
+			</td> 
+			<td> 
+				<ul> 
+					<li ng-repeat="exam in b.exams">{{exam}}</li> 
+				</ul> 
+			</td> 	
 		</tr> 
 		<tr> 
 			<td>DRPs</td> 
-			<td></td>  
-			<td></td>  
+			<td>
+				<ul> 
+					<li ng-repeat="DRP in a.DRPs">{{DRP.key}}: {{DRP.val}}</li> 
+				</ul> 
+			</td> 
+			<td>
+				<ul> 
+					<li ng-repeat="DRP in b.DRPs">{{DRP.key}}: {{DRP.val}}</li> 
+				</ul> 
+			</td>
 		</tr>  
 	</tbody>
 </table> 
