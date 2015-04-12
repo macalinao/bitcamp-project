@@ -23,11 +23,26 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
   $urlRouterProvider.otherwise('/');
 })
 
-.controller('HomeCtrl', function($scope, $http) {
-  $scope.iapds = [];
+.controller('HomeCtrl', function($scope, $http, $location) {
+  $scope.advisor = {};
+  $scope.advisorIds = {};
+
+  $scope.advisors = [];
   $http.get('/iapds').success(function(data) {
-    $scope.iapds = data;
+    $scope.advisors = data;
   });
+
+  $scope.onSelectA = function(item) {
+    $scope.advisorIds.a = item._id;
+  };
+
+  $scope.onSelectB = function(item) {
+    $scope.advisorIds.b = item._id;
+  };
+
+  $scope.compare = function() {
+    $location.url('/compare/' + $scope.advisorIds.a + '/' + $scope.advisorIds.b);
+  };
 })
 
 .controller('IapdCtrl', function($scope, $stateParams) {
