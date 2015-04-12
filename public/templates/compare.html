@@ -13,9 +13,11 @@
       </thead>
       <tbody>
         <tr>
-          <td>Rating</td>
-          <td><font size="24">{{ a.rating }}</font>Rating <a data-toggle="tooltip" data-placement="top" title="This score is calculated based on experience and ethical history."><span class="glyphicon glyphicon-question-sign"></span></a></td>
-          <td><font size="24">{{ b.rating }}</font>Rating  <a data-toggle="tooltip" data-placement="top" title="This score is calculated based on experience and ethical history."><span class="glyphicon glyphicon-question-sign"></span></a></td>
+          <td>Rating
+            <span id="ratingAbout" tooltip="This score is calculated based on experience and ethical history." class="glyphicon glyphicon-question-sign"></span>
+          </td>
+          <td class="rating">{{ a.rating }}</td>
+          <td class="rating">{{ b.rating }}</td>
         </tr>
         <tr>
           <td>Employer</td>

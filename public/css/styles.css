@@ -1,0 +1,13 @@
+#ratingAbout {
+  border-bottom: 1px dashed #000;
+  color: #333;
+}
+
+#ratingAbout:hover {
+  text-decoration: underline;
+  color: #337ab7;
+}
+
+.rating {
+  font-size: 50px;
+}
