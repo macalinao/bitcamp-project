@@ -5,7 +5,12 @@ import mongojs, { ObjectId } from 'mongojs';
 let app = express();
 
 // Database
-let db = mongojs(process.env.MONGODB_URI || 'mongodb://localhost:27017/bitcamp');
+let mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/bitcamp';
+if (process.env.VCAP_APP_SERVICES) {
+  let svcs = JSON.parse(process.env.VCAP_APP_SERVICES);
+  mongoUri = svcs.mongolab[0].credentials.uri;
+}
+let db = mongojs(mongoUri);
 let iapds = db.collection('iapds');
 // Indices
 iapds.createIndex({
@@ -139,7 +144,7 @@ app.get('/search', (req, res) => {
 
 app.use(express.static(__dirname + '/public/'));
 
-let port = process.env.PORT || 3000;
+let port = process.env.VCAP_APP_PORT || 3000;
 app.listen(port, () => {
   console.log('Listening on port ' + port);
 });
