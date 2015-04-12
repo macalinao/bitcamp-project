@@ -30,6 +30,8 @@ angular.module('justin', ['ui.router', 'ui.bootstrap'])
 })
 
 .controller('HomeCtrl', function($scope, $http, $location) {
+  s.title = 'InvestorWatch - Verify the integrity of investment advisors';
+
   $scope.advisor = {};
   $scope.advisorIds = {};
 
