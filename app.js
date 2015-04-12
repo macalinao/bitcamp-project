@@ -15,10 +15,10 @@ P.promisifyAll(iapds);
 
 app.get('/iapds', (req, res) => {
   let skip = (req.query.page || 0) * 200;
-  iapds.findAsync({}, {
-    limit: 200,
-    skip: skip
-  }).then((docs) => {
+  iapds.aggregateAsync([
+    { $limit: 50000 },
+    { $project: { 'Info.@firstNm': 1, 'Info.@lastNm': 1, score: 1 } }
+  ]).then((docs) => {
     res.json(docs);
   });
 });
