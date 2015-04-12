@@ -6,8 +6,8 @@ let app = express();
 
 // Database
 let mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/bitcamp';
-if (process.env.VCAP_APP_SERVICES) {
-  let svcs = JSON.parse(process.env.VCAP_APP_SERVICES);
+if (process.env.VCAP_SERVICES) {
+  let svcs = JSON.parse(process.env.VCAP_SERVICES);
   mongoUri = svcs.mongolab[0].credentials.uri;
 }
 let db = mongojs(mongoUri);
